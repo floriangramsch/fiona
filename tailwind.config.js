@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./components/**/*.{js,vue,ts}",
+    "./app/components/**/*.{js,vue,ts}",
     "./layouts/**/*.vue",
     "./pages/**/*.vue",
     "./plugins/**/*.{js,ts}",
@@ -11,10 +11,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: "#D5BDAF",
-        fg: "#F7E1D7",
-        text: "#E3D5CA",
-        special: "#F5EBE0",
+        "fiona-bg": "#D5BDAF",
+        "fiona-fg": "#F7E1D7",
+        "fiona-text": "#E3D5CA",
+        "fiona-special": "#F5EBE0",
+      },
+      fontFamily: {
+        vibes: ["Great Vibes"],
       },
     },
   },
