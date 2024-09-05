@@ -61,7 +61,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, nextTick } from 'vue';
+import { ref, watch, nextTick } from "vue";
 
 const props = defineProps<{
   width: number;
@@ -75,8 +75,8 @@ const newTodoInput = ref<HTMLInputElement | null>(null);
 
 const todos = ref<{ id: number; todo: string; done: boolean }[]>([
   { id: 0, todo: "essen", done: false },
-  { id: 1, todo: "waschen", done: false },
-  { id: 2, todo: "figgern", done: true },
+  { id: 1, todo: "waschen", done: true },
+  { id: 2, todo: "lernen", done: false },
   { id: 3, todo: "trainieren", done: false },
 ]);
 
