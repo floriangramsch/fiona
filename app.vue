@@ -6,11 +6,28 @@ const quote = ref<string>(
   "*We cannot solve problems with the kind of thinking we employed when we came up with them.*"
 );
 
-const getToday = () => {
-  const today = new Date();
-  console.log(today.getDay());
-};
-getToday();
+const events = ref<{ day: number; hour: number; content: string }[]>([]);
+events.value.push({
+  day: 4,
+  hour: 1,
+  content: "Seminar 1",
+});
+events.value.push({
+  day: 4,
+  hour: 2,
+  content: "Seminar 2",
+});
+events.value.push({
+  day: 4,
+  hour: 3,
+  content: "Seminar 3",
+});
+
+const hours = ref<{ hour: number; time: string }[]>([]);
+hours.value.push({
+  hour: 1,
+  time: "10 Uhr",
+});
 </script>
 
 <template>
@@ -31,11 +48,16 @@ getToday();
       class="h-3/4 w-full flex gap-3 bg-fiona-special justify-evenly items-center"
     >
       <div>
-        <Today :width="300" :height="500" />
+        <Today :width="300" :height="500" :events="events" />
       </div>
       <div class="flex flex-col gap-2">
-        <Stundenplan :width="570" :height="260" />
-        <Stundenplan :width="570" :height="260" />
+        <Stundenplan
+          :width="570"
+          :height="360"
+          v-model:events="events"
+          v-model:hours="hours"
+        />
+        <!-- <Stundenplan :width="570" :height="260" /> -->
       </div>
     </div>
   </div>
