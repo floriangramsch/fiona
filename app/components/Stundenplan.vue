@@ -4,7 +4,6 @@
     class="h-[30rem] w-[40rem] p-1 bg-fiona-fg flex flex-col rounded shadow relative"
   >
     <div class="flex justify-center relative h-[11%] mb-4 items-center">
-      <!-- <div class="bg-fiona-bg w-1/4 h-4/5 m-2 rounded absolute left-0"></div> -->
       <input
         v-model="special"
         class="absolute left-1 w-1/4 h-4/5 bg-fiona-bg focus:outline-dotted rounded border-none text-center"
@@ -94,8 +93,6 @@
 defineProps<{
   width: number;
   height: number;
-  // events: { day: number; hour: number; content: string }[];
-  // hours: { hour: number; time: string }[];
 }>();
 
 const events =

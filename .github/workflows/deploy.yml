@@ -1,0 +1,32 @@
+name: Update Fionas plan
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update_fionas_plan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: SSH into Raspberry Pi and pull changes
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.PI_HOST }}
+          username: ${{ secrets.PI_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e  # Stop execution on any error
+            cd /home/pi/Deployed/fiona
+            echo "Pulling....."
+            git pull
+            echo "Installing....."
+            npm install
+            echo "Building....."
+            npm run build
+            echo "Restarting systemctl..."
+            sudo systemctl restart fiona.service

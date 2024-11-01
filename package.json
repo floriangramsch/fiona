@@ -11,6 +11,8 @@
     "start": "nuxt start"
   },
   "dependencies": {
+    "@tanstack/vue-query": "^5.59.16",
+    "mysql2": "^3.11.3",
     "nuxt": "^3.13.0",
     "vue": "latest"
   },

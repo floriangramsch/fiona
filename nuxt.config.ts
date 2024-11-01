@@ -24,4 +24,5 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  plugins: ["~/plugins/vue-query.ts"],
 });
