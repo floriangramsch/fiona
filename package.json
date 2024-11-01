@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@tanstack/vue-query": "^5.59.16",
+    "csv-parser": "^3.0.0",
     "mysql2": "^3.11.3",
     "nuxt": "^3.13.0",
     "vue": "latest"
