@@ -10,7 +10,7 @@
       <div class="border border-black overflow-auto max-h-48">
         <div>Veranstaltungen</div>
         <ul class="list-disc pl-5">
-          <li v-for="v in getEvents()" :key="v.content">{{ v.content }}</li>
+          <li v-for="v in events" :key="v.id">{{ v.name }}</li>
         </ul>
       </div>
       <ToDos />
@@ -19,16 +19,13 @@
 </template>
 
 <script lang="ts" setup>
+import { useGetTodayEvents } from "../composables/eventMutations";
 import ToDos from "./ToDos.vue";
 
-const props = defineProps<{
+defineProps<{
   width: number;
   height: number;
-  events: { day: number; hour: number; content: string }[];
 }>();
 
-const getEvents = () => {
-  const today = new Date();
-  return props.events.filter((event) => event.day === today.getDay());
-};
+const { data: events } = useGetTodayEvents(new Date().getDay());
 </script>

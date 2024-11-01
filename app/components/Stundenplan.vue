@@ -41,7 +41,7 @@
             @click="openEventDialog(day_index, hour)"
             class="bg-fiona-special hover:bg-fiona-bg h-full m-1 rounded flex justify-center items-center"
           >
-            {{ findEvent(day_index, hour)?.content }}
+            {{ findEvent(day_index, hour)?.name }}
           </div>
         </div>
       </div>
@@ -90,13 +90,15 @@
 </template>
 
 <script setup lang="ts">
+import { useGetEvents } from "../composables/eventMutations";
+
 defineProps<{
   width: number;
   height: number;
 }>();
 
-const events =
-  defineModel<{ day: number; hour: number; content: string }[]>("events");
+const { data: events } = useGetEvents();
+
 const hours = defineModel<{ hour: number; time: string }[]>("hours");
 
 const days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"];
@@ -113,23 +115,13 @@ const special = ref<string>("WiSe 24");
 const newEventInput = ref<HTMLInputElement | null>(null);
 const newHourInput = ref<HTMLInputElement | null>(null);
 
-// const events = ref<{ day: number; hour: number; content: string }[]>([]);
-// events.value.push({
-//   day: 1,
-//   hour: 1,
-//   content: "etwas tun",
-// });
-
-// const hours = ref<{ hour: number; time: string }[]>([]);
-// hours.value.push({
-//   hour: 1,
-//   time: "10 Uhr",
-// });
-
 const findEvent = (dayEvent: number, hourEvent: number) => {
-  return events.value?.find(
-    ({ day, hour }) => day === dayEvent && hour === hourEvent
-  );
+  if (events.value) {
+    return events.value[0];
+  }
+  // return events.value?.find(
+  //   ({ start }) => day === dayEvent && hour === hourEvent
+  // );
 };
 
 const findHour = (hourToFind: number) => {
@@ -156,19 +148,17 @@ const openHourDialog = async (hour: number) => {
 };
 
 const addEvent = () => {
-  const existingEventIndex = events.value?.findIndex(
-    (event) =>
-      event.day === newEvent.value.day && event.hour === newEvent.value.hour
-  );
-
-  if (existingEventIndex && existingEventIndex !== -1) {
-    events.value?.splice(existingEventIndex, 1, newEvent.value);
-  } else {
-    events.value?.push(newEvent.value);
-  }
-
-  newEvent.value = { hour: 0, day: 0, content: "" };
-  showNewEventDialog.value = false;
+  // const existingEventIndex = events.value?.findIndex(
+  //   (event) =>
+  //     event.day === newEvent.value.day && event.hour === newEvent.value.hour
+  // );
+  // if (existingEventIndex && existingEventIndex !== -1) {
+  //   events.value?.splice(existingEventIndex, 1, newEvent.value);
+  // } else {
+  //   events.value?.push(newEvent.value);
+  // }
+  // newEvent.value = { hour: 0, day: 0, content: "" };
+  // showNewEventDialog.value = false;
 };
 
 const addHour = () => {
