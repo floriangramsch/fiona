@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { useQuery } from "@tanstack/vue-query";
 import useGetQuote from "../composables/useGetQuote";
 
-const { data, error, isLoading, refetch } = useGetQuote();
+const { data, error, isLoading } = useGetQuote();
 </script>
 
 <template>
@@ -17,7 +16,7 @@ const { data, error, isLoading, refetch } = useGetQuote();
     <div v-else-if="error">Error..</div>
     <div
       v-else
-      class="text-xl border-2 p-1 w-96 h-20 flex justify-center items-center text-center overflow-auto hidescrollbar"
+      class="text-xl border-2 w-96 h-20 flex justify-center items-center text-center overflow-auto hidescrollbar"
     >
       *{{ data?.quote }}*
     </div>

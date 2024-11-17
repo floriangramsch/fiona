@@ -31,6 +31,12 @@ const getHour = (time: any) => {
   }
 };
 
+const getHourMinutes = (time: any) => {
+  if (time) {
+    return time.split(":")[0] + ":" + time.split(":")[1];
+  }
+};
+
 const handleDialogClick = (e: MouseEvent) => {
   if (
     eventDialogRef.value &&
@@ -45,6 +51,7 @@ const handleDialogClick = (e: MouseEvent) => {
   <div
     class="w-full h-full p-1 bg-fiona-fg flex flex-col rounded shadow relative"
   >
+    <!-- Header -->
     <div class="flex justify-center relative h-[11%] mb-4 items-center">
       <input
         v-model="special"
@@ -52,6 +59,7 @@ const handleDialogClick = (e: MouseEvent) => {
       />
       <div class="flex items-center text-4xl font-vibes mt-2">Stundenplan</div>
     </div>
+    <!-- Time -->
     <div class="flex h-full w-full text-sm md:text-base">
       <div class="bg-fiona-special w-1/6 m-1 rounded">
         <div class="flex flex-col h-full bg-fiona-text">
@@ -60,12 +68,13 @@ const handleDialogClick = (e: MouseEvent) => {
           </div>
           <div
             v-for="hour_index in 6"
-            class="hover:bg-fiona-bg h-full m-1 flex justify-center items-center rounded"
+            class="hover:bg-fiona-bg h-full m-1 flex justify-center items-center rounded cursor-pointer"
           >
             {{ getHour(events?.times[hour_index - 1]) }}
           </div>
         </div>
       </div>
+      <!-- Events -->
       <div
         class="bg-fiona-fg w-72 md:w-full flex md:grid md:grid-rows-1 md:grid-cols-5 overflow-x-scroll snap-x snap-mandatory scroll-smooth md:overflow-auto"
       >
@@ -81,13 +90,14 @@ const handleDialogClick = (e: MouseEvent) => {
             v-for="hour in 6"
             :key="hour"
             @click="openEventDialog(findEvent(day_index, hour))"
-            class="bg-fiona-special hover:bg-fiona-bg h-full m-1 rounded flex justify-center items-center md:justify-start md:items-start overflow-auto hidescrollbar"
+            class="bg-fiona-special hover:bg-fiona-bg h-full m-1 rounded flex justify-center items-center md:justify-start md:items-start overflow-auto hidescrollbar cursor-pointer"
           >
             {{ findEvent(day_index, hour)?.name }}
           </div>
         </div>
       </div>
     </div>
+    <!-- EventDialog -->
     <div
       v-if="showEventDialog"
       @click.prevent="handleDialogClick"
@@ -103,6 +113,11 @@ const handleDialogClick = (e: MouseEvent) => {
             {{ eventToShow?.name }}
           </div>
           <div>{{ eventToShow?.location }}</div>
+          <div>
+            {{ getHourMinutes(eventToShow?.start_time) }}
+            -
+            {{ getHourMinutes(eventToShow?.end_time) }}
+          </div>
         </div>
         <button
           class="bg-fiona-bg p-2 rounded mt-2"
