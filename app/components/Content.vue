@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Stundenplan from "./Stundenplan.vue";
-import Today from "./Today.vue";
+import Today from "./today/Today.vue";
 
 const hours = ref<{ hour: number; time: string }[]>([]);
 hours.value.push({
@@ -14,7 +14,7 @@ hours.value.push({
     class="w-full flex flex-col md:flex-row gap-3 bg-fiona-special justify-evenly items-center"
   >
     <div class="h-[20rem] md:h-[25rem] w-[20rem]">
-      <Today :width="300" :height="500" />
+      <Today />
     </div>
     <div class="flex flex-col gap-2 h-[25rem] md:w-[40rem]">
       <Stundenplan v-model:hours="hours" />

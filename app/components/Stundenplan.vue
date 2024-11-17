@@ -8,6 +8,7 @@ const days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"];
 const showEventDialog = ref<boolean>(false);
 
 const eventToShow = ref<TEvent>();
+const eventDialogRef = ref<HTMLDivElement | undefined>();
 
 const special = ref<string>("WiSe 24");
 
@@ -24,11 +25,19 @@ const openEventDialog = async (event: TEvent | undefined) => {
   eventToShow.value = event;
 };
 
-const test = (a: any) => {
-  if (a) {
-    return a.split(":")[0] + " Uhr";
+const getHour = (time: any) => {
+  if (time) {
+    return time.split(":")[0] + " Uhr";
   }
-  console.log(a);
+};
+
+const handleDialogClick = (e: MouseEvent) => {
+  if (
+    eventDialogRef.value &&
+    !eventDialogRef.value.contains(e.target as Node)
+  ) {
+    showEventDialog.value = false;
+  }
 };
 </script>
 
@@ -53,7 +62,7 @@ const test = (a: any) => {
             v-for="hour_index in 6"
             class="hover:bg-fiona-bg h-full m-1 flex justify-center items-center rounded"
           >
-            {{ test(events?.times[hour_index - 1]) }}
+            {{ getHour(events?.times[hour_index - 1]) }}
           </div>
         </div>
       </div>
@@ -72,7 +81,7 @@ const test = (a: any) => {
             v-for="hour in 6"
             :key="hour"
             @click="openEventDialog(findEvent(day_index, hour))"
-            class="bg-fiona-special hover:bg-fiona-bg h-full m-1 rounded flex justify-center items-center overflow-auto hidescrollbar"
+            class="bg-fiona-special hover:bg-fiona-bg h-full m-1 rounded flex justify-center items-center md:justify-start md:items-start overflow-auto hidescrollbar"
           >
             {{ findEvent(day_index, hour)?.name }}
           </div>
@@ -81,11 +90,19 @@ const test = (a: any) => {
     </div>
     <div
       v-if="showEventDialog"
+      @click.prevent="handleDialogClick"
       class="absolute flex justify-center items-center w-full h-full"
     >
-      <div class="bg-fiona-fg w-1/2 h-1/2 rounded shadow flex flex-col p-2">
-        <div class="flex w-full text-center">
-          {{ eventToShow?.name }}
+      <div
+        click.stop
+        ref="eventDialogRef"
+        class="bg-fiona-fg w-1/2 h-1/2 rounded shadow flex flex-col justify-between text-xl p-2"
+      >
+        <div class="flex flex-col gap-2 w-full text-center justify-center">
+          <div>
+            {{ eventToShow?.name }}
+          </div>
+          <div>{{ eventToShow?.location }}</div>
         </div>
         <button
           class="bg-fiona-bg p-2 rounded mt-2"

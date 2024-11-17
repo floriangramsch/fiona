@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { useQuery } from "@tanstack/vue-query";
 import {
   useAddTodoMutation,
   useDeleteTodoMutation,
   useGetTodos,
   useUpdateTodoMutation,
-} from "../composables/todoMutations";
-import type { TTodo } from "../utils/types";
+} from "../../composables/todoMutations";
+import type { TTodo } from "../../utils/types";
 
 const showNewTodoDialog = ref<boolean>(false);
 const newTodo = ref<string>("");

@@ -10,6 +10,7 @@ export type TEvent = {
   start_time: Date;
   end_time: Date;
   weekday: number;
+  location: string;
 };
 
 export type TStundenplan = {
