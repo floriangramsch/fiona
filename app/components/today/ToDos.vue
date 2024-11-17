@@ -31,10 +31,10 @@ const deleteTodo = (id: number) => {
   deleteTodoMutation.mutate(id);
 };
 
-const addTodo = () => {
+const addTodo = (e: Event) => {
   addTodoMutation.mutate(newTodo.value);
 
-  closeTodoDialog();
+  closeTodoDialog(e);
   newTodo.value = "";
 };
 
@@ -46,7 +46,8 @@ const openTodoDialog = async () => {
   }
 };
 
-const closeTodoDialog = () => {
+const closeTodoDialog = (e: MouseEvent | Event) => {
+  e.stopPropagation();
   showNewTodoDialog.value = false;
   newTodo.value = "";
 };
@@ -67,14 +68,14 @@ watch(
   <div class="flex-1 flex-col overflow-auto">
     <div class="font-bold">
       To Dos
-      <button class="ml-2 text-xl" @click="openTodoDialog">+</button>
+      <button class="ml-2 text-xl" @click.stop="openTodoDialog">+</button>
     </div>
     <ul class="list-disc pl-5">
       <li
         v-for="todo in todos"
         :key="todo.id"
         class="cursor-pointer"
-        @click.stop="() => updateTodo(todo)"
+        @click.stop="updateTodo(todo)"
       >
         <div class="flex space-x-2">
           <div :class="{ 'line-through': todo.done }">
@@ -86,10 +87,10 @@ watch(
     </ul>
     <div
       v-if="showNewTodoDialog"
-      class="absolute flex justify-center items-center w-full h-full"
+      class="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center w-screen h-screen"
     >
       <div
-        class="bg-fiona-fg w-3/4 h-3/5 rounded shadow flex justify-center items-center"
+        class="bg-fiona-fg w-3/4 h-1/5 md:w-2/4 md:h-2/5 rounded shadow flex justify-center items-center"
       >
         <form class="flex flex-col" @submit.prevent="addTodo">
           <input
@@ -99,7 +100,7 @@ watch(
           />
           <div class="flex justify-center space-x-2">
             <button type="submit">Eintrag!</button>
-            <button @click="closeTodoDialog">x</button>
+            <button @click.stop="closeTodoDialog">x</button>
           </div>
         </form>
       </div>

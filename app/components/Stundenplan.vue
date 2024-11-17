@@ -2,6 +2,10 @@
 import { useGetEvents } from "../composables/useGetEvents";
 import type { TEvent } from "../utils/types";
 
+const props = defineProps<{
+  showStundenplan: boolean;
+}>();
+
 const { data: events } = useGetEvents();
 
 const days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"];
@@ -20,9 +24,14 @@ const findEvent = (dayEvent: number, hourEvent: number) => {
   }
 };
 
-const openEventDialog = async (event: TEvent | undefined) => {
-  showEventDialog.value = true;
-  eventToShow.value = event;
+const openEventDialog = async (e: MouseEvent, event: TEvent | undefined) => {
+  e.stopPropagation();
+  if (!props.showStundenplan) {
+    e.stopPropagation();
+  } else {
+    showEventDialog.value = true;
+    eventToShow.value = event;
+  }
 };
 
 const getHour = (time: any) => {
@@ -38,7 +47,10 @@ const getHourMinutes = (time: any) => {
 };
 
 const handleDialogClick = (e: MouseEvent) => {
-  if (
+  e.stopPropagation();
+  if (!props.showStundenplan) {
+    e.stopPropagation();
+  } else if (
     eventDialogRef.value &&
     !eventDialogRef.value.contains(e.target as Node)
   ) {
@@ -89,7 +101,7 @@ const handleDialogClick = (e: MouseEvent) => {
           <div
             v-for="hour in 6"
             :key="hour"
-            @click="openEventDialog(findEvent(day_index, hour))"
+            @click="(e) => openEventDialog(e, findEvent(day_index, hour))"
             class="bg-fiona-special hover:bg-fiona-bg h-full m-1 rounded flex justify-center items-center md:justify-start md:items-start overflow-auto hidescrollbar cursor-pointer"
           >
             {{ findEvent(day_index, hour)?.name }}
@@ -101,12 +113,12 @@ const handleDialogClick = (e: MouseEvent) => {
     <div
       v-if="showEventDialog"
       @click.prevent="handleDialogClick"
-      class="absolute flex justify-center items-center w-full h-full"
+      class="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center w-full h-full shadow"
     >
       <div
         click.stop
         ref="eventDialogRef"
-        class="bg-fiona-fg w-1/2 h-1/2 rounded shadow flex flex-col justify-between text-xl p-2"
+        class="bg-fiona-fg md:w-1/4 md:h-1/4 rounded shadow flex flex-col justify-between text-xl p-2"
       >
         <div class="flex flex-col gap-2 w-full text-center justify-center">
           <div>
