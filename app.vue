@@ -5,7 +5,7 @@ import Content from "./app/components/Content.vue";
 
 <template>
   <div
-    class="min-h-screen w-screen bg-fiona-bg text-blue-950 flex flex-col justify-center items-center space-y-4"
+    class="flex flex-col h-screen w-screen bg-fiona-special text-blue-950 space-y-4"
   >
     <Header />
 

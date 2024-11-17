@@ -1,14 +1,11 @@
 <template>
   <div
-    :style="{ width: width + 'px', height: height + 'px' }"
-    class="h-[40rem] w-96 border border-fiona-text bg-fiona-fg rounded shadow p-2"
+    class="h-full w-full border border-fiona-text bg-fiona-fg rounded shadow p-2 flex flex-col"
   >
-    <div>
-      <div class="text-xl">For Today</div>
-    </div>
-    <div class="flex flex-col h-full justify-evenly">
-      <div class="border border-black overflow-auto max-h-48">
-        <div>Veranstaltungen</div>
+    <div class="text-4xl font-vibes p-3">For Today</div>
+    <div class="flex flex-1 flex-col text-xl">
+      <div class="flex-1 overflow-auto justify-start items-start">
+        <div class="font-bold">Veranstaltungen</div>
         <ul class="list-disc pl-5">
           <li v-for="v in events" :key="v.id">{{ v.name }}</li>
         </ul>

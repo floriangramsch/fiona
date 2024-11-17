@@ -6,8 +6,12 @@ const { data, error, isLoading, refetch } = useGetQuote();
 </script>
 
 <template>
-  <div class="h-1/4 w-full flex flex-col justify-center items-center space-y-2">
-    <div class="text-8xl font-vibes pt-2 text-center">Fiona's Planer</div>
+  <div
+    class="w-full flex flex-col justify-center items-center space-y-2 bg-fiona-bg py-5 md:py-10"
+  >
+    <div class="text-7xl md:text-8xl font-vibes pt-2 text-center">
+      Fiona's Planer
+    </div>
 
     <div v-if="isLoading">Loading...</div>
     <div v-else-if="error">Error..</div>

@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     head: {
       title: "Fiona Spiona",
       meta: [
-        { name: "theme-color", content: "#D5BDAF" },
+        { name: "theme-color", content: "#F5EBE0" },
         { name: "description", content: "Planer für Fiona" },
       ],
       link: [

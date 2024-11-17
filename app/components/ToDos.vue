@@ -65,10 +65,10 @@ watch(
 </script>
 
 <template>
-  <div class="border flex flex-col border-black relative">
-    <div>
+  <div class="flex-1 flex-col overflow-auto">
+    <div class="font-bold">
       To Dos
-      <button class="font-bold ml-2 text-xl" @click="openTodoDialog">+</button>
+      <button class="ml-2 text-xl" @click="openTodoDialog">+</button>
     </div>
     <ul class="list-disc pl-5">
       <li

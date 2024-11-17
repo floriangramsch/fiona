@@ -11,13 +11,13 @@ hours.value.push({
 
 <template>
   <div
-    class="h-3/4 w-full flex flex-col lg:flex-row gap-3 bg-fiona-special justify-evenly items-center"
+    class="w-full flex flex-col md:flex-row gap-3 bg-fiona-special justify-evenly items-center"
   >
-    <div>
+    <div class="h-[20rem] md:h-[25rem] w-[20rem]">
       <Today :width="300" :height="500" />
     </div>
-    <div class="flex flex-col gap-2">
-      <Stundenplan :width="570" :height="360" v-model:hours="hours" />
+    <div class="flex flex-col gap-2 h-[25rem] md:w-[40rem]">
+      <Stundenplan v-model:hours="hours" />
     </div>
   </div>
 </template>

@@ -1,7 +1,40 @@
+<script setup lang="ts">
+import { useGetEvents } from "../composables/useGetEvents";
+import type { TEvent } from "../utils/types";
+
+const { data: events } = useGetEvents();
+
+const days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"];
+const showEventDialog = ref<boolean>(false);
+
+const eventToShow = ref<TEvent>();
+
+const special = ref<string>("WiSe 24");
+
+const findEvent = (dayEvent: number, hourEvent: number) => {
+  if (events.value?.events) {
+    return events.value.events.find(
+      (event) => event.weekday === dayEvent && event.time_slot === hourEvent
+    );
+  }
+};
+
+const openEventDialog = async (event: TEvent | undefined) => {
+  showEventDialog.value = true;
+  eventToShow.value = event;
+};
+
+const test = (a: any) => {
+  if (a) {
+    return a.split(":")[0] + " Uhr";
+  }
+  console.log(a);
+};
+</script>
+
 <template>
   <div
-    :style="{ width: width + 'px', height: height + 'px' }"
-    class="h-[30rem] w-[40rem] p-1 bg-fiona-fg flex flex-col rounded shadow relative"
+    class="w-full h-full p-1 bg-fiona-fg flex flex-col rounded shadow relative"
   >
     <div class="flex justify-center relative h-[11%] mb-4 items-center">
       <input
@@ -10,7 +43,7 @@
       />
       <div class="flex items-center text-4xl font-vibes mt-2">Stundenplan</div>
     </div>
-    <div class="flex h-full w-full">
+    <div class="flex h-full w-full text-sm md:text-base">
       <div class="bg-fiona-special w-1/6 m-1 rounded">
         <div class="flex flex-col h-full bg-fiona-text">
           <div class="flex justify-center bg-fiona-fg text-fiona-text">
@@ -20,12 +53,18 @@
             v-for="hour_index in 6"
             class="hover:bg-fiona-bg h-full m-1 flex justify-center items-center rounded"
           >
-            {{ events?.times[hour_index - 1] }}
+            {{ test(events?.times[hour_index - 1]) }}
           </div>
         </div>
       </div>
-      <div class="bg-fiona-fg w-full grid grid-rows-1 grid-cols-5">
-        <div v-for="day_index in 5" :key="day_index" class="flex flex-col">
+      <div
+        class="bg-fiona-fg w-72 md:w-full flex md:grid md:grid-rows-1 md:grid-cols-5 overflow-x-scroll snap-x snap-mandatory scroll-smooth md:overflow-auto"
+      >
+        <div
+          v-for="day_index in 5"
+          :key="day_index"
+          class="flex flex-col snap-center min-w-full md:w-auto"
+        >
           <div class="flex justify-center text-fiona-text">
             {{ days[day_index - 1] }}
           </div>
@@ -58,36 +97,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useGetEvents } from "../composables/useGetEvents";
-import type { TEvent } from "../utils/types";
-
-defineProps<{
-  width: number;
-  height: number;
-}>();
-
-const { data: events } = useGetEvents();
-
-const days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"];
-const showEventDialog = ref<boolean>(false);
-
-const eventToShow = ref<TEvent>();
-
-const special = ref<string>("WiSe 24");
-
-const findEvent = (dayEvent: number, hourEvent: number) => {
-  if (events.value?.events) {
-    return events.value.events.find(
-      (event) => event.weekday === dayEvent && event.time_slot === hourEvent
-    );
-  }
-};
-
-const openEventDialog = async (event: TEvent | undefined) => {
-  console.log(event);
-  showEventDialog.value = true;
-  eventToShow.value = event;
-};
-</script>
