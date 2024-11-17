@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useGetTodayEvents } from "../composables/eventMutations";
+import { useGetTodayEvents } from "../composables/useGetEvents";
 import ToDos from "./ToDos.vue";
 
 defineProps<{

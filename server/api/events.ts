@@ -6,19 +6,19 @@ export default defineEventHandler(async (event) => {
   const connection = await getConnection();
   try {
     if (method === "POST") {
-      const { name, start, end }: TEvent = await readBody(event);
+      const { name, start_time, end_time }: TEvent = await readBody(event);
       await connection.query(
-        "INSERT INTO event (name, start, end) VALUES (?, ?, ?)",
-        [[name, start, end]]
+        "INSERT INTO event (name, start_time, end_time) VALUES (?, ?, ?)",
+        [[name, start_time, end_time]]
       );
       return { message: "Todo added" };
     }
 
     if (method === "PUT") {
-      const { id, name, start, end }: TEvent = await readBody(event);
+      const { id, name, start_time, end_time }: TEvent = await readBody(event);
       await connection.query(
-        "UPDATE event SET name = ?, start = ?, end = ? WHERE id = ?",
-        [name, start, end, id]
+        "UPDATE event SET name = ?, start_time = ?, end_time = ? WHERE id = ?",
+        [name, start_time, end_time, id]
       );
       return { message: "Event updated" };
     }
@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
       const { weekday }: { weekday?: number } = getQuery(event);
       if (weekday) {
         const [rows] = await connection.query(
-          "SELECT * FROM event WHERE WEEKDAY(start) = ?",
+          "SELECT * FROM event WHERE WEEKDAY(start_time) = ?",
           [weekday - 1]
         );
         return rows;

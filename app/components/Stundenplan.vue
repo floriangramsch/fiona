@@ -17,29 +17,23 @@
             Zeit
           </div>
           <div
-            v-for="index in 6"
-            :key="index"
-            @click="openHourDialog(index)"
+            v-for="hour_index in 6"
             class="hover:bg-fiona-bg h-full m-1 flex justify-center items-center rounded"
           >
-            {{ findHour(index)?.time }}
+            {{ events?.times[hour_index - 1] }}
           </div>
         </div>
       </div>
-      <div class="flex bg-fiona-fg w-full">
-        <div
-          v-for="day_index in 5"
-          :key="day_index"
-          class="w-full flex flex-col"
-        >
+      <div class="bg-fiona-fg w-full grid grid-rows-1 grid-cols-5">
+        <div v-for="day_index in 5" :key="day_index" class="flex flex-col">
           <div class="flex justify-center text-fiona-text">
             {{ days[day_index - 1] }}
           </div>
           <div
             v-for="hour in 6"
             :key="hour"
-            @click="openEventDialog(day_index, hour)"
-            class="bg-fiona-special hover:bg-fiona-bg h-full m-1 rounded flex justify-center items-center"
+            @click="openEventDialog(findEvent(day_index, hour))"
+            class="bg-fiona-special hover:bg-fiona-bg h-full m-1 rounded flex justify-center items-center overflow-auto hidescrollbar"
           >
             {{ findEvent(day_index, hour)?.name }}
           </div>
@@ -47,50 +41,27 @@
       </div>
     </div>
     <div
-      v-if="showNewEventDialog"
+      v-if="showEventDialog"
       class="absolute flex justify-center items-center w-full h-full"
     >
-      <div
-        class="bg-fiona-fg w-1/2 h-1/4 rounded shadow flex justify-center items-center"
-      >
-        <form class="flex flex-col" @submit.prevent="addEvent">
-          <input
-            ref="newEventInput"
-            class="text-center rounded bg-fiona-special focus:outline-dotted"
-            v-model="newEvent.content"
-          />
-          <div class="flex justify-center space-x-2">
-            <button type="submit">Eintrag!</button>
-            <button @click="() => (showNewEventDialog = false)">x</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div
-      v-if="showNewHourDialog"
-      class="absolute flex justify-center items-center w-full h-full"
-    >
-      <div
-        class="bg-fiona-fg w-1/2 h-1/4 rounded shadow flex justify-center items-center"
-      >
-        <form class="flex flex-col" @submit.prevent="addHour">
-          <input
-            ref="newHourInput"
-            class="text-center rounded bg-fiona-special focus:outline-dotted"
-            v-model="newHour.time"
-          />
-          <div class="flex justify-center space-x-2">
-            <button type="submit">Eintrag!</button>
-            <button @click="() => (showNewHourDialog = false)">x</button>
-          </div>
-        </form>
+      <div class="bg-fiona-fg w-1/2 h-1/2 rounded shadow flex flex-col p-2">
+        <div class="flex w-full text-center">
+          {{ eventToShow?.name }}
+        </div>
+        <button
+          class="bg-fiona-bg p-2 rounded mt-2"
+          @click="() => (showEventDialog = false)"
+        >
+          Close
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useGetEvents } from "../composables/eventMutations";
+import { useGetEvents } from "../composables/useGetEvents";
+import type { TEvent } from "../utils/types";
 
 defineProps<{
   width: number;
@@ -99,102 +70,24 @@ defineProps<{
 
 const { data: events } = useGetEvents();
 
-const hours = defineModel<{ hour: number; time: string }[]>("hours");
-
 const days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"];
-const showNewEventDialog = ref<boolean>(false);
-const newEvent = ref<{
-  day: number;
-  hour: number;
-  content: string;
-}>({ hour: 0, day: 0, content: "" });
+const showEventDialog = ref<boolean>(false);
 
-const showNewHourDialog = ref<boolean>(false);
-const newHour = ref<{ hour: number; time: string }>({ hour: 0, time: "" });
+const eventToShow = ref<TEvent>();
+
 const special = ref<string>("WiSe 24");
-const newEventInput = ref<HTMLInputElement | null>(null);
-const newHourInput = ref<HTMLInputElement | null>(null);
 
 const findEvent = (dayEvent: number, hourEvent: number) => {
-  if (events.value) {
-    return events.value[0];
-  }
-  // return events.value?.find(
-  //   ({ start }) => day === dayEvent && hour === hourEvent
-  // );
-};
-
-const findHour = (hourToFind: number) => {
-  return hours.value?.find(({ hour }) => hourToFind === hour);
-};
-
-const openEventDialog = async (day: number, hour: number) => {
-  showNewEventDialog.value = true;
-  newEvent.value.day = day;
-  newEvent.value.hour = hour;
-  await nextTick(); // Wait for the DOM update
-  if (newEventInput.value) {
-    newEventInput.value.focus(); // Focus the input element
+  if (events.value?.events) {
+    return events.value.events.find(
+      (event) => event.weekday === dayEvent && event.time_slot === hourEvent
+    );
   }
 };
 
-const openHourDialog = async (hour: number) => {
-  showNewHourDialog.value = true;
-  newHour.value.hour = hour;
-  await nextTick(); // Wait for the DOM update
-  if (newHourInput.value) {
-    newHourInput.value.focus(); // Focus the input element
-  }
+const openEventDialog = async (event: TEvent | undefined) => {
+  console.log(event);
+  showEventDialog.value = true;
+  eventToShow.value = event;
 };
-
-const addEvent = () => {
-  // const existingEventIndex = events.value?.findIndex(
-  //   (event) =>
-  //     event.day === newEvent.value.day && event.hour === newEvent.value.hour
-  // );
-  // if (existingEventIndex && existingEventIndex !== -1) {
-  //   events.value?.splice(existingEventIndex, 1, newEvent.value);
-  // } else {
-  //   events.value?.push(newEvent.value);
-  // }
-  // newEvent.value = { hour: 0, day: 0, content: "" };
-  // showNewEventDialog.value = false;
-};
-
-const addHour = () => {
-  const existingHourIndex = hours.value?.findIndex(
-    (event) => event.hour === newHour.value.hour
-  );
-
-  if (existingHourIndex && existingHourIndex !== -1) {
-    hours.value?.splice(existingHourIndex, 1, newHour.value);
-  } else {
-    hours.value?.push(newHour.value);
-  }
-
-  newHour.value = { hour: 0, time: "" };
-  showNewHourDialog.value = false;
-};
-
-watch(
-  () => showNewEventDialog.value,
-  (isVisible) => {
-    if (isVisible && newEventInput.value) {
-      nextTick(() => {
-        newEventInput.value?.focus();
-      });
-    }
-  }
-);
-
-watch(
-  () => showNewHourDialog.value,
-  (isVisible) => {
-    if (isVisible && newHourInput.value) {
-      nextTick(() => {
-        newHourInput.value?.focus();
-      });
-    }
-  }
-);
 </script>
