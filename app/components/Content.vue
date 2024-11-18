@@ -6,28 +6,15 @@ const showAll = ref<boolean>(true);
 const showToday = ref<boolean>(false);
 const showStundenplan = ref<boolean>(false);
 
-const toggleToday = () => {
-  if (showToday.value) {
-    showAll.value = true;
-    showToday.value = false;
+const toggle = (name: string) => {
+  if (name === "today") {
+    showToday.value = !showToday.value;
     showStundenplan.value = false;
-  } else {
-    showAll.value = false;
-    showToday.value = true;
-    showStundenplan.value = false;
-  }
-};
-
-const toggleStundenplan = () => {
-  if (showStundenplan.value) {
-    showAll.value = true;
-    showStundenplan.value = false;
-    showToday.value = false;
-  } else {
-    showAll.value = false;
-    showStundenplan.value = true;
+  } else if (name === "stundenplan") {
+    showStundenplan.value = !showStundenplan.value;
     showToday.value = false;
   }
+  showAll.value = !showToday.value && !showStundenplan.value;
 };
 </script>
 
@@ -37,7 +24,7 @@ const toggleStundenplan = () => {
   >
     <div
       v-if="showToday || showAll"
-      @click="toggleToday"
+      @click="toggle('today')"
       :class="
         showToday
           ? 'w-[20rem] md:w-[70rem] h-[35rem] md:h-[30rem]'
@@ -48,7 +35,7 @@ const toggleStundenplan = () => {
     </div>
     <div
       v-if="showStundenplan || showAll"
-      @click="toggleStundenplan"
+      @click="toggle('stundenplan')"
       :class="
         showStundenplan
           ? 'w-[20rem] md:w-[70rem] h-[35rem] md:h-[30rem]'
