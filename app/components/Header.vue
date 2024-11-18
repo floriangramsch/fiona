@@ -16,7 +16,7 @@ const { data, error, isLoading } = useGetQuote();
     <div v-else-if="error">Error..</div>
     <div
       v-else
-      class="text-xl border-2 w-96 h-20 flex justify-center items-center text-center overflow-auto hidescrollbar"
+      class="text-xl border-2 w-96 h-20 flex justify-center items-start text-center overflow-auto hidescrollbar"
     >
       *{{ data?.quote }}*
     </div>
