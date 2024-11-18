@@ -38,8 +38,8 @@ const toggle = (name: string) => {
       @click="toggle('stundenplan')"
       :class="
         showStundenplan
-          ? 'w-[20rem] md:w-[70rem] h-[35rem] md:h-[30rem]'
-          : 'w-[20rem] md:w-[50rem] h-[30rem] md:h-[27rem]'
+          ? 'w-[24rem] md:w-[70rem] h-[35rem] md:h-[30rem]'
+          : 'w-[24rem] md:w-[50rem] h-[30rem] md:h-[27rem]'
       "
     >
       <!-- <Stundenplan :showStundenplan="showStundenplan" /> -->
