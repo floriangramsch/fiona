@@ -2,10 +2,6 @@
 import { useGetEvents } from "../composables/useGetEvents";
 import type { TEvent } from "../utils/types";
 
-const props = defineProps<{
-  showStundenplan: boolean;
-}>();
-
 const { data: events } = useGetEvents();
 
 const days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"];
@@ -25,13 +21,8 @@ const findEvent = (dayEvent: number, hourEvent: number) => {
 };
 
 const openEventDialog = async (e: MouseEvent, event: TEvent | undefined) => {
-  e.stopPropagation();
-  if (!props.showStundenplan) {
-    e.stopPropagation();
-  } else {
-    showEventDialog.value = true;
-    eventToShow.value = event;
-  }
+  showEventDialog.value = true;
+  eventToShow.value = event;
 };
 
 const getHour = (time: any) => {
@@ -47,10 +38,7 @@ const getHourMinutes = (time: any) => {
 };
 
 const handleDialogClick = (e: MouseEvent) => {
-  e.stopPropagation();
-  if (!props.showStundenplan) {
-    e.stopPropagation();
-  } else if (
+  if (
     eventDialogRef.value &&
     !eventDialogRef.value.contains(e.target as Node)
   ) {
@@ -101,7 +89,7 @@ const handleDialogClick = (e: MouseEvent) => {
           <div
             v-for="hour in 6"
             :key="hour"
-            @click="(e) => openEventDialog(e, findEvent(day_index, hour))"
+            @click.stop="(e) => openEventDialog(e, findEvent(day_index, hour))"
             class="bg-fiona-special hover:bg-fiona-bg h-full m-1 rounded flex justify-center items-center md:justify-start md:items-start overflow-auto hidescrollbar cursor-pointer"
           >
             {{ findEvent(day_index, hour)?.name }}
@@ -112,7 +100,7 @@ const handleDialogClick = (e: MouseEvent) => {
     <!-- EventDialog -->
     <div
       v-if="showEventDialog"
-      @click.prevent="handleDialogClick"
+      @click.stop="handleDialogClick"
       class="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center w-full h-full shadow"
     >
       <div
@@ -133,7 +121,7 @@ const handleDialogClick = (e: MouseEvent) => {
         </div>
         <button
           class="bg-fiona-bg p-2 rounded mt-2"
-          @click="() => (showEventDialog = false)"
+          @click.stop="() => (showEventDialog = false)"
         >
           Close
         </button>

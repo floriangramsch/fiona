@@ -33,8 +33,8 @@ export default defineEventHandler(async (event) => {
       const { weekday }: { weekday?: number } = getQuery(event);
       if (weekday) {
         const [rows] = await connection.query(
-          "SELECT * FROM event WHERE WEEKDAY(start_time) = ?",
-          [weekday - 1]
+          "SELECT * FROM event WHERE weekday = ?",
+          [weekday]
         );
         return rows;
       } else {

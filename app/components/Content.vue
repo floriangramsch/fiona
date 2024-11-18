@@ -4,26 +4,17 @@ import Today from "./today/Today.vue";
 
 const showAll = ref<boolean>(true);
 const showToday = ref<boolean>(false);
-const todayH = ref<string[]>(["20rem", "25rem"]);
-const todayW = ref<string[]>(["20rem", "20rem"]);
-
 const showStundenplan = ref<boolean>(false);
-const stundenplanH = ref<string[]>(["25rem", "25rem"]);
-const stundenplanW = ref<string[]>(["40rem", "40rem"]);
 
 const toggleToday = () => {
   if (showToday.value) {
     showAll.value = true;
     showToday.value = false;
     showStundenplan.value = false;
-    todayH.value = ["20rem", "25rem"];
-    todayW.value = ["20rem", "25rem"];
   } else {
     showAll.value = false;
     showToday.value = true;
     showStundenplan.value = false;
-    todayH.value = ["20rem", "25rem"];
-    todayW.value = ["20rem", "25rem"];
   }
 };
 
@@ -32,14 +23,10 @@ const toggleStundenplan = () => {
     showAll.value = true;
     showStundenplan.value = false;
     showToday.value = false;
-    stundenplanH.value = ["25rem", "25rem"];
-    stundenplanW.value = ["40rem", "40rem"];
   } else {
     showAll.value = false;
     showStundenplan.value = true;
     showToday.value = false;
-    stundenplanH.value = ["20rem", "30rem"];
-    stundenplanW.value = ["40rem", "70rem"];
   }
 };
 </script>
@@ -51,17 +38,25 @@ const toggleStundenplan = () => {
     <div
       v-if="showToday || showAll"
       @click="toggleToday"
-      :class="`h-[${todayH[0]}] md:h-[${todayH[1]}] w-[${todayW[0]}]`"
+      :class="
+        showToday
+          ? 'w-[20rem] md:w-[70rem] h-[35rem] md:h-[30rem]'
+          : 'w-[20rem] md:w-[20rem] h-[30rem] md:h-[29rem]'
+      "
     >
       <Today />
     </div>
     <div
       v-if="showStundenplan || showAll"
       @click="toggleStundenplan"
-      class="flex flex-col gap-2"
-      :class="`h-[${stundenplanH[0]}] md:h-[${stundenplanH[1]}] w-[${stundenplanW[0]}] md:w-[${stundenplanW[1]}]`"
+      :class="
+        showStundenplan
+          ? 'w-[20rem] md:w-[70rem] h-[35rem] md:h-[30rem]'
+          : 'w-[20rem] md:w-[50rem] h-[30rem] md:h-[27rem]'
+      "
     >
-      <Stundenplan :showStundenplan="showStundenplan" />
+      <!-- <Stundenplan :showStundenplan="showStundenplan" /> -->
+      <Stundenplan />
     </div>
   </div>
 </template>
