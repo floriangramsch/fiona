@@ -1,7 +1,6 @@
 {
-  "name": "Fionas Journal",
-  "short_name": "Journal",
-  "start_url": "/",
+  "name": "Fionas Spiona",
+  "short_name": "Spiona",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -17,6 +16,6 @@
     }
   ],
   "theme_color": "#ffffff",
-  "background_color": "#e67fa6",
+  "background_color": "#ffffff",
   "display": "standalone"
 }
