@@ -66,7 +66,7 @@ watch(
 
 <template>
   <div class="flex-1 flex-col overflow-auto">
-    <div class="font-bold">
+    <div class="font-bold sticky top-0 bg-fiona-fg">
       To Dos
       <button class="ml-2 text-xl" @click.stop="openTodoDialog">+</button>
     </div>
