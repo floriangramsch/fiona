@@ -43,11 +43,11 @@ const showWeekDate = () => {
       <div class="flex items-center gap-2">
         <i
           @click.stop="getLastMonday"
-          class="fa-solid fa-angle-left text-base"
+          class="fa-solid fa-angle-left text-base p-1"
         />
         <i
           @click.stop="getNextMonday"
-          class="fa-solid fa-angle-right text-base"
+          class="fa-solid fa-angle-right text-base p-1"
         />
       </div>
     </div>
