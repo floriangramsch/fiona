@@ -20,7 +20,7 @@ const toggle = (name: string) => {
 
 <template>
   <div
-    class="w-full flex flex-col md:flex-row gap-3 bg-fiona-special justify-evenly items-center"
+    class="w-full flex flex-col md:flex-row gap-3 bg-fiona-special justify-evenly items-center p-2"
   >
     <div
       v-if="showToday || showAll"
@@ -42,7 +42,6 @@ const toggle = (name: string) => {
           : 'w-[24rem] md:w-[50rem] h-[30rem] md:h-[27rem]'
       "
     >
-      <!-- <Stundenplan :showStundenplan="showStundenplan" /> -->
       <Stundenplan />
     </div>
   </div>

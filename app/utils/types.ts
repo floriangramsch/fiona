@@ -2,6 +2,7 @@ export type TTodo = {
   id: number;
   content: string;
   done: boolean;
+  week_id: number;
 };
 
 export type TEvent = {

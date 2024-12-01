@@ -45,6 +45,17 @@ const handleDialogClick = (e: MouseEvent) => {
     showEventDialog.value = false;
   }
 };
+
+const dayRef = ref<HTMLDivElement | null>(null);
+
+onMounted(() => {
+  if (dayRef.value) {
+    const today = new Date().getDay();
+    const thirdDivIndex = today === 0 || today === 6 ? 0 : today - 1;
+    const divWidth = dayRef.value.scrollWidth / dayRef.value.children.length;
+    dayRef.value.scrollLeft = thirdDivIndex * divWidth;
+  }
+});
 </script>
 
 <template>
@@ -68,7 +79,7 @@ const handleDialogClick = (e: MouseEvent) => {
           </div>
           <div
             v-for="hour_index in 6"
-            class="hover:bg-fiona-bg h-full m-1 flex justify-center items-center rounded cursor-pointer"
+            class="hover:bg-fiona-bg h-full m-1 flex justify-center items-center rounded cursor-pointer text-fiona-fg"
           >
             {{ getHour(events?.times[hour_index - 1]) }}
           </div>
@@ -76,6 +87,7 @@ const handleDialogClick = (e: MouseEvent) => {
       </div>
       <!-- Events -->
       <div
+        ref="dayRef"
         class="bg-fiona-fg w-72 md:w-full flex md:grid md:grid-rows-1 md:grid-cols-5 overflow-x-scroll snap-x snap-mandatory scroll-smooth md:overflow-auto"
       >
         <div

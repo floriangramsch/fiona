@@ -6,8 +6,18 @@ const { data, error, isLoading } = useGetQuote();
 
 <template>
   <div
-    class="w-full flex flex-col justify-center items-center space-y-2 bg-fiona-bg py-5 md:py-10"
+    class="relative w-full flex flex-col justify-center items-center space-y-2 bg-fiona-bg py-5 md:py-10"
   >
+    <!-- <i
+      v-for="n in 10"
+      :key="n"
+      class="absolute fa-regular fa-star text-8xl"
+      :style="{
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+      }"
+    /> -->
+
     <div class="text-7xl md:text-8xl font-vibes pt-2 text-center">
       Fiona's Planer
     </div>

@@ -6,10 +6,11 @@ export default defineEventHandler(async (event) => {
   const connection = await getConnection();
   try {
     if (method === "POST") {
-      const { content }: TTodo = await readBody(event);
-      await connection.query("INSERT INTO todo (content) VALUES (?)", [
-        content,
-      ]);
+      const { content, week_id }: TTodo = await readBody(event);
+      await connection.query(
+        "INSERT INTO todo (content, week_id) VALUES (?,?)",
+        [content, week_id]
+      );
       return { message: "Todo added" };
     }
 

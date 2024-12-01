@@ -17,13 +17,19 @@ export const useAddTodoMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (content: string) => {
+    mutationFn: async ({
+      content,
+      week_id,
+    }: {
+      content: string;
+      week_id: number;
+    }) => {
       const response = await fetch(`/api/todos`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ content }),
+        body: JSON.stringify({ content, week_id }),
       });
       if (!response.ok) {
         throw new Error("Error adding todo");
@@ -32,6 +38,7 @@ export const useAddTodoMutation = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
+      queryClient.invalidateQueries({ queryKey: ["week"] });
     },
   });
 };
@@ -50,6 +57,7 @@ export const useUpdateTodoMutation = () => {
           id: todo.id,
           content: todo.content,
           done: todo.done,
+          week_id: todo.week_id,
         }),
       });
       if (!response.ok) {
@@ -59,6 +67,7 @@ export const useUpdateTodoMutation = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
+      queryClient.invalidateQueries({ queryKey: ["week"] });
     },
   });
 };

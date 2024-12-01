@@ -13,11 +13,12 @@ export default {
       colors: {
         "fiona-bg": "#D5BDAF",
         "fiona-fg": "#F7E1D7",
-        "fiona-text": "#E3D5CA",
+        "fiona-text": "#b68979",
         "fiona-special": "#F5EBE0",
       },
       fontFamily: {
         vibes: ["Great Vibes"],
+        quicksand: ["Quicksand"],
       },
     },
   },

@@ -4,13 +4,12 @@
   >
     <div class="text-4xl text-center font-vibes p-3">For Today</div>
     <div class="flex flex-1 flex-col text-xl overflow-auto">
-      <Veranstaltungen />
-      <ToDos />
+      <!-- <Veranstaltungen /> -->
+      <TodoWeek />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import Veranstaltungen from "./Veranstaltungen.vue";
-import ToDos from "./ToDos.vue";
+import TodoWeek from "../Tody/TodoWeek.vue";
 </script>
