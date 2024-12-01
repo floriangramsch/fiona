@@ -6,7 +6,7 @@ const { data, error, isLoading } = useGetQuote();
 
 <template>
   <div
-    class="relative w-full flex flex-col justify-center items-center space-y-2 bg-fiona-bg py-5 md:py-10"
+    class="relative flex w-full flex-col items-center justify-center space-y-2 bg-fiona-bg py-5 md:py-10"
   >
     <!-- <i
       v-for="n in 10"
@@ -18,7 +18,7 @@ const { data, error, isLoading } = useGetQuote();
       }"
     /> -->
 
-    <div class="text-7xl md:text-8xl font-vibes pt-2 text-center">
+    <div class="pt-2 text-center font-vibes text-7xl md:text-8xl">
       Fiona's Planer
     </div>
 
@@ -26,7 +26,7 @@ const { data, error, isLoading } = useGetQuote();
     <div v-else-if="error">Error..</div>
     <div
       v-else
-      class="text-xl border-2 w-96 h-20 flex justify-center items-start text-center overflow-auto hidescrollbar"
+      class="hidescrollbar flex h-20 w-96 items-start justify-center overflow-auto border-2 text-center text-xl"
     >
       *{{ data?.quote }}*
     </div>

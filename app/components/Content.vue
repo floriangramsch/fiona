@@ -20,15 +20,15 @@ const toggle = (name: string) => {
 
 <template>
   <div
-    class="w-full flex flex-col md:flex-row gap-3 bg-fiona-special justify-evenly items-center p-2"
+    class="flex w-full flex-col items-center justify-evenly gap-3 bg-fiona-special p-2 md:flex-row"
   >
     <div
       v-if="showToday || showAll"
       @click="toggle('today')"
       :class="
         showToday
-          ? 'w-[20rem] md:w-[70rem] h-[35rem] md:h-[30rem]'
-          : 'w-[20rem] md:w-[20rem] h-[30rem] md:h-[29rem]'
+          ? 'h-[35rem] w-[20rem] md:h-[30rem] md:w-[70rem]'
+          : 'h-[30rem] w-[20rem] md:h-[29rem] md:w-[20rem]'
       "
     >
       <Today />
@@ -38,8 +38,8 @@ const toggle = (name: string) => {
       @click="toggle('stundenplan')"
       :class="
         showStundenplan
-          ? 'w-[24rem] md:w-[70rem] h-[35rem] md:h-[30rem]'
-          : 'w-[24rem] md:w-[50rem] h-[30rem] md:h-[27rem]'
+          ? 'h-[35rem] w-[24rem] md:h-[30rem] md:w-[70rem]'
+          : 'h-[30rem] w-[24rem] md:h-[27rem] md:w-[50rem]'
       "
     >
       <Stundenplan />

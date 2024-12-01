@@ -77,7 +77,7 @@ watch(
         newTodoInput.value?.focus();
       });
     }
-  }
+  },
 );
 </script>
 
@@ -103,7 +103,7 @@ watch(
         </div>
       </li>
       <button
-        class="text-xs mt-2 p-2 rounded shadow bg-fiona-special"
+        class="mt-2 rounded bg-fiona-special p-2 text-xs shadow"
         @click.stop="openTodoDialog"
       >
         New Todo
@@ -112,26 +112,26 @@ watch(
     <!-- Dialog -->
     <div
       v-if="showNewTodoDialog"
-      class="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center w-screen h-screen"
+      class="fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-black bg-opacity-50"
     >
       <div
         @click.stop
-        class="bg-fiona-fg w-3/4 h-1/5 md:w-2/4 md:h-2/5 rounded shadow flex justify-center items-center relative"
+        class="relative flex h-1/5 w-3/4 items-center justify-center rounded bg-fiona-fg shadow md:h-2/5 md:w-2/4"
       >
         <form class="flex flex-col" @submit.prevent="addTodo">
           <input
             ref="newTodoInput"
-            class="text-center rounded md:h-12 md:w-64 bg-fiona-special focus:outline-dotted"
+            class="rounded bg-fiona-special text-center focus:outline-dotted md:h-12 md:w-64"
             v-model="newTodo"
           />
           <div class="flex justify-center space-x-2">
             <button
               type="submit"
-              class="p-2 rounded shadow bg-fiona-special mt-3"
+              class="mt-3 rounded bg-fiona-special p-2 shadow"
             >
               Mach schon!
             </button>
-            <button class="absolute top-0 left-0" @click.stop="closeTodoDialog">
+            <button class="absolute left-0 top-0" @click.stop="closeTodoDialog">
               <i class="fa-solid fa-close text-4xl" />
             </button>
           </div>

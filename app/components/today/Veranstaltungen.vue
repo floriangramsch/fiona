@@ -5,8 +5,8 @@ const { data: events } = useGetTodayEvents(new Date().getDay());
 </script>
 
 <template>
-  <div class="flex-1 overflow-auto justify-start items-start">
-    <div class="font-bold sticky top-0 bg-fiona-fg">Veranstaltungen</div>
+  <div class="flex-1 items-start justify-start overflow-auto">
+    <div class="sticky top-0 bg-fiona-fg font-bold">Veranstaltungen</div>
     <ul class="list-disc pl-5">
       <li v-for="v in events" :key="v.id">{{ v.name }}</li>
     </ul>

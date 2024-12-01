@@ -1,9 +1,9 @@
 <template>
   <div
-    class="h-full w-full border border-fiona-text bg-fiona-fg rounded shadow p-2 flex flex-col"
+    class="flex h-full w-full flex-col rounded border border-fiona-text bg-fiona-fg p-2 shadow"
   >
-    <div class="text-4xl text-center font-vibes p-3">For Today</div>
-    <div class="flex flex-1 flex-col text-xl overflow-auto">
+    <div class="p-3 text-center font-vibes text-4xl">For Today</div>
+    <div class="flex flex-1 flex-col overflow-auto text-xl">
       <!-- <Veranstaltungen /> -->
       <TodoWeek />
     </div>

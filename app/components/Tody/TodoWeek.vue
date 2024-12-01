@@ -36,18 +36,18 @@ const showWeekDate = () => {
 </script>
 
 <template>
-  <div class="bg-fiona-fg w-full">
+  <div class="w-full bg-fiona-fg">
     <div class="flex justify-between p-1 text-2xl">
       <div>To-Dos</div>
       <div class="font-extralight">{{ showWeekDate() }}</div>
       <div class="flex items-center gap-2">
         <i
           @click.stop="getLastMonday"
-          class="fa-solid fa-angle-left text-base p-1"
+          class="fa-solid fa-angle-left p-1 text-base"
         />
         <i
           @click.stop="getNextMonday"
-          class="fa-solid fa-angle-right text-base p-1"
+          class="fa-solid fa-angle-right p-1 text-base"
         />
       </div>
     </div>
