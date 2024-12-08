@@ -2,6 +2,10 @@
 import { useGetWeek } from "~/app/composables/useWeek";
 import ToDos from "../today/ToDos.vue";
 
+defineProps<{
+  focused: boolean;
+}>();
+
 const getCurrentMonday = () => {
   const monday = new Date();
   const dayOfWeek = monday.getDay();
@@ -56,7 +60,7 @@ const showWeekDate = () => {
         <i class="fa-solid fa-cat fa-spin" />
         Loading...
       </div>
-      <ToDos v-else :todos="todos" :monday="date" />
+      <ToDos v-else :todos="todos" :monday="date" :focused="focused" />
     </div>
   </div>
 </template>

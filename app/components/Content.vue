@@ -31,7 +31,7 @@ const toggle = (name: string) => {
           : 'h-[30rem] w-[20rem] md:h-[29rem] md:w-[20rem]'
       "
     >
-      <Today />
+      <Today :focused="showToday" />
     </div>
     <div
       v-if="showStundenplan || showAll"

@@ -5,11 +5,15 @@
     <div class="p-3 text-center font-vibes text-4xl">For Today</div>
     <div class="flex flex-1 flex-col overflow-auto text-xl">
       <!-- <Veranstaltungen /> -->
-      <TodoWeek />
+      <TodoWeek :focused="focused" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import TodoWeek from "../Tody/TodoWeek.vue";
+
+defineProps<{
+  focused: boolean;
+}>();
 </script>

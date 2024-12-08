@@ -11,6 +11,7 @@ import type { TTodo } from "../../utils/types";
 const props = defineProps<{
   todos?: TTodo[];
   monday?: Date;
+  focused: boolean;
 }>();
 
 const showNewTodoDialog = ref<boolean>(false);
@@ -89,8 +90,25 @@ watch(
     </div> -->
     <ul class="list-outside">
       <li
+        v-if="focused"
         v-for="todo in todos"
         :key="todo.id"
+        class="cursor-pointer"
+        @click.stop="updateTodo(todo)"
+      >
+        <div class="flex items-center gap-2">
+          <i class="fa-regular fa-star" />
+          {{ todo.content }}
+          <i v-if="todo.done" class="fa-regular fa-check-square" />
+          <i v-else class="fa-regular fa-square" />
+          <!-- <button @click.stop="deleteTodo(todo.id)">X</button> -->
+        </div>
+      </li>
+
+      <li
+        v-else
+        v-for="todo in todos?.filter((todo) => !todo.done)"
+        :key="todo.id + 'unfocused'"
         class="cursor-pointer"
         @click.stop="updateTodo(todo)"
       >
