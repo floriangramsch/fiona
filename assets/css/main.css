@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Baskerville Normal";
+  src:
+    local("Baskerville Normal"),
+    url("/fonts/baskerville/baskvl.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
 html,
 body {
   background-color: #f5ebe0;

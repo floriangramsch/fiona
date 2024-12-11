@@ -19,6 +19,7 @@ export default {
       fontFamily: {
         vibes: ["Great Vibes"],
         quicksand: ["Quicksand"],
+        "Baskerville-Normal": ["Baskerville Normal"],
       },
     },
   },

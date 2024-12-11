@@ -1,5 +1,4 @@
 {
-  "version": "0.5",
   "name": "Fiona Spiona",
   "short_name": "Spiona",
   "icons": [
@@ -16,7 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#D5BDAF",
+  "background_color": "#D5BDAF",
   "display": "standalone"
 }
