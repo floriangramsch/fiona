@@ -2,6 +2,15 @@
 import Stundenplan from "./Stundenplan.vue";
 import Today from "./today/Today.vue";
 
+import { onMounted } from "vue";
+
+onMounted(async () => {
+  const res = await fetch("/site.webmanifest");
+  const data = await res.json();
+  alert(data.version);
+  console.log(data.version);
+});
+
 const showAll = ref<boolean>(true);
 const showToday = ref<boolean>(false);
 const showStundenplan = ref<boolean>(false);
