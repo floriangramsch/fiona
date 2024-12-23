@@ -144,7 +144,7 @@ watch(
           {{ todo.content }}
           <i v-if="todo.done" class="fa-regular fa-check-square" />
           <i v-else class="fa-regular fa-square" />
-          <i @click.stop="openTodoEdit(todo)" class="fa-regular fa-edit" />
+          <i @click.stop="openTodoEdit(todo)" class="fa-solid fa-wand-sparkles" />
         </div>
       </li>
 
@@ -160,7 +160,7 @@ watch(
           {{ todo.content }}
           <i v-if="todo.done" class="fa-regular fa-check-square" />
           <i v-else class="fa-regular fa-square" />
-          <i @click.stop="openTodoEdit(todo)" class="fa-regular fa-edit" />
+          <i @click.stop="openTodoEdit(todo)" class="fa-regular fa-solid fa-wand-sparkles" />
         </div>
       </li>
       <button
