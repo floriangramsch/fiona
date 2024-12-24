@@ -33,7 +33,7 @@ const { data, error, isLoading } = useGetQuote();
       <div
         class="hidescrollbar px-20 py-3 flex items-start justify-center border-2 text-center text-xl"
       >
-        *Keep Swimming*
+        Keep Swimming
         <!-- *{{ data?.quote }}* -->
       </div>
     </div>
