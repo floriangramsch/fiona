@@ -24,13 +24,17 @@ const { data, error, isLoading } = useGetQuote();
         Fiona's Planer
       </div>
 
-      <div v-if="isLoading">Loading...</div>
-      <div v-else-if="error">Error..</div>
-      <div
+      <!-- <div v-if="isLoading">Loading...</div>
+      <div v-else-if="error">Error..</div> -->
+      <!-- <div
         v-else
         class="hidescrollbar flex h-20 w-96 items-start justify-center overflow-auto border-2 text-center text-xl"
+      > -->
+      <div
+        class="hidescrollbar px-20 py-3 flex items-start justify-center border-2 text-center text-xl"
       >
-        *{{ data?.quote }}*
+        *Keep Swimming*
+        <!-- *{{ data?.quote }}* -->
       </div>
     </div>
 
