@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ExamList from "./exams/ExamList.vue";
 import Stundenplan from "./Stundenplan.vue";
 import Today from "./today/Today.vue";
 
@@ -22,6 +23,10 @@ const toggle = (name: string) => {
   <div
     class="flex w-full flex-col items-center justify-evenly gap-3 bg-fiona-special p-2 md:flex-row"
   >
+    <div v-if="showAll" class="sm:hidden">
+      <ExamList />
+    </div>
+    
     <div
       v-if="showToday || showAll"
       @click="toggle('today')"
@@ -33,6 +38,7 @@ const toggle = (name: string) => {
     >
       <Today :focused="showToday" />
     </div>
+
     <div
       v-if="showStundenplan || showAll"
       @click="toggle('stundenplan')"

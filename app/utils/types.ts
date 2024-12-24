@@ -18,3 +18,10 @@ export type TStundenplan = {
   times: Date[];
   events: (TEvent & { time_slot?: number })[];
 };
+
+export type TExam = {
+  id: number,
+  title: string,
+  start: string,
+  end: string
+}
