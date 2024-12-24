@@ -34,7 +34,7 @@ const { data, error, isLoading } = useGetQuote();
       </div>
     </div>
 
-    <div class="ml-10 hidden sm:inline sm:-mr-40">
+    <div class="sm:absolute hidden sm:inline sm:right-40">
       <ExamList />
     </div>
   </div>
