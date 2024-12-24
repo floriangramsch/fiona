@@ -22,11 +22,23 @@ const { data: exams } = useGetExams();
 const addMutation = useAddExamMutation();
 const addExam = () => {
   if (form.value.title && form.value.start && form.value.end) {
-    addMutation.mutate({
-      title: form.value.title,
-      start: form.value.start,
-      end: form.value.start,
-    });
+    addMutation.mutate(
+      {
+        title: form.value.title,
+        start: form.value.start,
+        end: form.value.start,
+      },
+      {
+        onSuccess: () => {
+          form.value = {
+            title: undefined,
+            start: undefined,
+            end: undefined,
+          };
+          dialogRef.value.close()
+        },
+      },
+    );
   }
 };
 
@@ -138,7 +150,7 @@ const showHoursMinutes = (start: string, end: string) => {
       class="rounded bg-fiona-fg p-1 opacity-40 shadow"
       @click="dialogRef.open"
     >
-      New Exam
+      Edit Exams
     </button>
 
     <Dialog ref="dialogRef">
